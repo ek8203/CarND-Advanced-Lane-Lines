@@ -26,8 +26,8 @@ A detail witeup of the projects can be found in [writeup_report.md](writeup_repo
 * [advanced_lane_finding.ipynb](advanced_lane_finding.ipynb) -  The actual project code with the solution.
 * [writeup_report.md](writeup_report.md) - The project writeup - a markdown file that includes the rubric points as well as description of how each point was addressed in the project.
 * [project_video_output.mp4](project_video_output.mp4) - The output video of the lane boundaries and numerical estimation of lane curvature and vehicle position.
-* *`camera_cal/`* - A folder with the input and output images for camera calibration
-* *`ouput_images/`* - A folder with examples of the output from each stage of the processing pipeline 
+* `camera_cal/` - A folder with the input and output images for camera calibration
+* `output_images/` - A folder with examples of the output from each stage of the processing pipeline 
 
 ### Project Environment
 
