@@ -78,15 +78,25 @@ Then I tested it on a binary thresholded image of curved lanes:
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Then I used a method of taking peaks in a histogram to find the lane lines on the binary warped image and to fit the lines with a 2nd order polynomial. The related code could be found in cells `[12],[13]and[14]` of the IPython notebook.
+
+First I took a histogram along all the columns in the lower half of a binary warped image:
+![histogram](output_images/histogram.jpg)
+The two most prominent peaks in the histogram indicated the x-position of the base of the lane lines. I use that as a starting point for where to search for the lines. From that point I used a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame:
+![detected_lane](output_images/detected_lane.jpg)
+After fitting the extracted lines with the second order polinominal the resulted curved line looked like this:
+![detected_lane-lines](output_images/detected_lane-lines.jpg)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in my_other_file.py
+Calculation of the  radius of curvature of the lane and the position of the vehicle with respect to center is done in code cells `[17],[18]and[19]` of the IPython notebook. I used the formula provided in the class for the calculation. First I calculated the radius of curvature in the pixel space and then scaled the measurements to the warld space (meters) with the following scale parameters: `30 meters per 720 pixels in y dimension` and `3.7 meters per 700 pixels in x dimension`
+
+To calculate the vehicle position I defined a camera position in the middle of the binary warped image. Then I took a mean value of the base points of the detected lines at the bottom of the image as a center of the lane. The difference between the camera position and the lane center, scaled to meters, gave me the offset of the vehicle position.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in yet_another_file.py in the function map_lane(). Here is an example of my result on a test image:
+The next step was to plot the detected lane on the original image. It is done in the code cell `[20]` of the notebook. I mapped the lane image on the warped image first and then used the inversed perspective transfor to put it back on the undistorted original image of the road. Here is an example of my result on a test image:
+![measurements](output_images/measurements.jpg)
 
 ### Pipeline (video)
 
