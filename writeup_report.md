@@ -96,16 +96,26 @@ To calculate the vehicle position I defined a camera position in the middle of t
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 The next step was to plot the detected lane on the original image. It is done in the code cell `[20]` of the notebook. I mapped the lane image on the warped image first and then used the inversed perspective transfor to put it back on the undistorted original image of the road. Here is an example of my result on a test image:
-![measurements](output_images/measurements.jpg)
+![test_pipeline](output_images/test_pipeline.jpg)
 
 ### Pipeline (video)
 
 #### 1. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a link to my video result
+The video pipeline code is in cell `[21]` of the notebook. The pipeline processes each video frame as following:
+* Removes distortion
+* Creates a thresholded binary image
+* Transforms to a top-down view
+* Detects the lane lines
+* Wraps the lane back to the original image
+* Calculates the curvature and camera offset from the center of the lane
+
+Here's a link to my final output video [project_video_output.mp4](project_video_output.mp4)
 
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
+The techniques in the project are taken directly from the class lessons. It covers just the basics and it was not tested in low light conditions or on a road with only one left line ceparating the traffic direction. Also it was not tested on the traffic lanes separated by double lines.
+
+I believe there is plenty of room for improvement if I was going to pursue this project further. First I would spend more time on creating tresholded binary images by using more challenging images with not clear lane lines. Second I would use better filters to smooth the video with detected lines. And finaly I would change the structure of the project by creating separate python modules responsible for different image processing steps and importing the modules to the IPython notebook. Also my Line() class is missing a proper constructor, sanity check and access methods.   
