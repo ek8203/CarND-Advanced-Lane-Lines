@@ -62,6 +62,7 @@ I used a combination of color and gradient thresholds to generate a binary image
 The code for my perspective transform is in cells `[8], [9] and [10]` of the IPython notebook. 
 First I put mark lines on top of the lane lines to find source points (corners) for the perspective transform. I used an image with straight lanes to check if the output lines were drawing a rectangle.
 ![mark_straight_lines](output_images/mark_straight_lines.jpg)
+
 I chose the source points as the end points of the drawn lines. The destination points are the outer corners of the image minus an offset of 200 pixels. The order of the corners is `top-left->top-right->bottom-right->bottom-left`. This resulted in the following source and destination points:
 
 | Corner | Source (x,y) | Destination (x,y) | 
@@ -82,8 +83,10 @@ Then I used a method of taking peaks in a histogram to find the lane lines on th
 
 First I took a histogram along all the columns in the lower half of a binary warped image:
 ![histogram](output_images/histogram.jpg)
+
 The two most prominent peaks in the histogram indicated the x-position of the base of the lane lines. I use that as a starting point for where to search for the lines. From that point I used a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame:
 ![detected_lane](output_images/detected_lane.jpg)
+
 After fitting the extracted lines with the second order polinominal the resulted curved line looked like this:
 ![detected_lane-lines](output_images/detected_lane-lines.jpg)
 
